@@ -1,0 +1,35 @@
+.profile-panel {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 15px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  margin: 15px;
+  transition: 0.3s;
+}
+
+.profile-panel:hover {
+  transform: translateY(-3px);
+}
+
+.profile-avatar img {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%; /* Circle Image */
+  object-fit: cover;
+  border: 3px solid #4caf50; /* Green border */
+}
+
+.profile-details h2 {
+  margin: 0;
+  font-size: 20px;
+  color: #333;
+}
+
+.profile-details p {
+  margin: 5px 0;
+  font-size: 14px;
+  color: #555;
+}

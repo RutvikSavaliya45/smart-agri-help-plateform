@@ -1,0 +1,269 @@
+:root{
+  --green:#2a7d2a;
+  --green-dark:#1f5c1f;
+  --bg:#f5f7f9;
+  --text:#222;
+  --muted:#667085;
+  --card:#ffffff;
+  --border:#e5e7eb;
+}
+
+/* Layout */
+.admin-wrap{
+  display:flex;
+  min-height:100vh;
+  background:var(--bg);
+  color:var(--text);
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+}
+
+/* Sidebar */
+.admin-sidebar{
+  width:260px;
+  background:var(--green);
+  color:#fff;
+  padding:24px 16px;
+  box-shadow:2px 0 12px rgba(0,0,0,.06);
+  display:flex;
+  flex-direction:column;
+}
+.admin-brand{
+  font-size:20px;
+  font-weight:700;
+  margin:0 0 12px;
+}
+.admin-sub{
+  opacity:.9;
+  font-size:13px;
+  margin-bottom:14px;
+  border-bottom:1px solid rgba(255,255,255,.12);
+  padding-bottom:10px;
+}
+.admin-nav{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  margin-top:8px;
+  flex: 1;
+}
+.admin-link{
+  display:block;
+  width:100%;
+  text-align:left;
+  padding:10px 12px;
+  border-radius:8px;
+  background:transparent;
+  color:#fff;
+  border:none;
+  cursor:pointer;
+  transition:.15s ease;
+  font-weight:600;
+}
+.admin-link:hover{ background:var(--green-dark); }
+.admin-link.active{ background:#185018; }
+
+/* logout placed at bottom */
+.admin-logout {
+  background: #d82525;
+  border: none;
+  padding: 10px 15px;
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.15s ease-in-out;
+  border-radius: 8px;
+}
+.admin-logout:hover {
+  transform: translateY(-2px);
+}
+
+/* Main */
+.admin-main{
+  flex:1;
+  padding:28px;
+}
+
+/* Header */
+.admin-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:18px;
+}
+.admin-title{
+  font-size:28px;
+  font-weight:800;
+  color:var(--green);
+}
+.admin-sub {
+  color:var(--muted);
+  font-size:14px;
+}
+
+/* Card base */
+.card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:14px;
+  box-shadow:0 2px 8px rgba(16,24,40,.06);
+}
+.card-pad{ padding:18px; }
+
+/* Stat cards row */
+.stats-row {
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-bottom:14px;
+}
+.stat-card {
+  background:var(--card);
+  border-radius:8px;
+  padding:12px;
+  box-shadow:0 1px 6px rgba(0,0,0,0.04);
+  flex:1;
+  min-width:140px;
+  text-align:left;
+}
+.stat-num { font-size:20px; font-weight:700; color:var(--green); }
+.stat-label { color:var(--muted); font-size:13px; }
+
+/* Table */
+.table-wrap{ overflow:auto; }
+.table{
+  width:100%;
+  border-collapse:separate;
+  border-spacing:0;
+  margin-top:10px;
+  border:1px solid var(--border);
+  border-radius:12px;
+  overflow:hidden;
+}
+.table thead th{
+  background:#d7f1d7;
+  color:#0f3d0f;
+  text-align:left;
+  font-weight:800;
+  padding:10px 12px;
+  border-bottom:1px solid var(--border);
+}
+.table tbody td{
+  padding:10px 12px;
+  border-bottom:1px solid var(--border);
+}
+.table tbody tr:hover{ background:#f4faf4; }
+
+/* Buttons */
+.btn { padding:8px 10px; border-radius:8px; border:none; cursor:pointer; background:#eee; }
+.btn-green { background:var(--green); color:#fff; font-weight:700; }
+.btn-red { background:#d9534f; color:#fff; font-weight:700; }
+
+/* Inputs */
+.input { width:100%; padding:8px; border-radius:8px; border:1px solid var(--border); margin-bottom:8px; }
+
+/* Small utilities */
+.text-muted { color:var(--muted); font-size:13px; }
+
+/* Cards used in admin home */
+.card-compact { padding:12px; border-radius:10px; }
+
+/* Responsive */
+@media (max-width: 900px){
+  .admin-sidebar{ width:220px; }
+}
+@media (max-width: 720px){
+  .admin-wrap{ flex-direction:column; }
+  .admin-sidebar{
+    width:100%;
+    border-radius:0 0 14px 14px;
+    order: -1;
+  }
+}
+
+/* Reuse farmer-style components for admin (schemes, crop-cards, qa) */
+.scheme-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+.scheme-card {
+  background: #f9fff9;
+  border: 1px solid #d4e8d4;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+.scheme-card h4 { color: var(--green); margin-bottom:8px; }
+.scheme-card p { font-size:14px; color:#333; margin-bottom:12px; }
+
+.crop-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+}
+.crop-card {
+  background: #fff;
+  border: 1px solid #cfead1;
+  border-radius: 10px;
+  padding: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+}
+.crop-card h4 { color: var(--green); margin-bottom:6px; }
+.crop-images { display:flex; gap:6px; margin-top:8px; }
+.crop-images img { width:70px; height:70px; object-fit:cover; border-radius:8px; border:1px solid #ddd; }
+
+/* QA list for experts section */
+.qa-list { display:flex; flex-direction:column; gap:12px; }
+.qa-card { background:#fff; border:1px solid #eee; border-radius:8px; padding:12px; box-shadow:0 1px 3px rgba(0,0,0,0.04); }
+
+/* Admin home specific layout */
+.admin-home-grid {
+  display:grid;
+  grid-template-columns: 1fr;
+  gap:16px;
+}
+
+/* compact table actions */
+.table-actions { display:flex; gap:8px; align-items:center; }
+
+/* profile-like small panel (reuse) */
+.profile-panel {
+  background: var(--card);
+  border:1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px;
+  display:flex;
+  gap:12px;
+  align-items:center;
+}
+.profile-panel .avatar {
+  width:56px; height:56px; border-radius:50%;
+  background:#dff0d9; color:var(--green);
+  display:flex; align-items:center; justify-content:center;
+  font-weight:700; font-size:18px;
+}
+.profile-details h3 { margin:0; font-size:16px; }
+.profile-details p { margin:4px 0; color:var(--muted); font-size:13px; }
+
+/* small helpers */
+.flex { display:flex; gap:8px; align-items:center; }
+.center { text-align:center; }
+
+/* subtle hover for cards */
+.card:hover { transform: translateY(-3px); transition: transform .18s ease; }
+
+.admin-brand{
+  font-size:20px;
+  font-weight:700;
+  margin:0 0 16px;
+}
+.admin-sub{
+  opacity:.85;
+  font-size:13px;
+  margin-bottom:18px;
+  color: #d4e8d4;
+  border-bottom:1px solid rgba(255, 255, 255, 0.2);
+  padding-bottom:12px;
+}

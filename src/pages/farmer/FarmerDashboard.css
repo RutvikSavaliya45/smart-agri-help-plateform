@@ -15,6 +15,7 @@
   background:var(--bg);
   color:var(--text);
   font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  position: relative;
 }
 
 /* Sidebar */
@@ -24,6 +25,7 @@
   color:#fff;
   padding:24px 16px;
   box-shadow:2px 0 12px rgba(0,0,0,.06);
+  transition: transform 0.3s ease-in-out;
 }
 .farmer-brand{
   font-size:20px;
@@ -159,19 +161,68 @@
 @media (max-width: 900px){
   .farmer-sidebar{ width:220px; }
 }
+
+/* ====== 🚩 Responsive Sidebar (hamburger style) ====== */
 @media (max-width: 720px){
   .farmer-wrap{ flex-direction:column; }
+
   .farmer-sidebar{
-    width:100%;
-    border-radius:0 0 14px 14px;
+    position: fixed;
+    top:0;
+    left:0;
+    height:100%;
+    width:240px;
+    transform: translateX(-100%);
+    z-index:1000;
+    border-radius:0;
+  }
+  .farmer-sidebar.open{
+    transform: translateX(0);
+  }
+
+  .farmer-main{ padding:16px; margin-top:50px; }
+}
+
+/* ====== Hamburger Button ====== */
+.hamburger{
+  display:none;
+  position:absolute;
+  top:14px;
+  left:14px;
+  background:var(--green);
+  border:none;
+  color:#fff;
+  font-size:24px;
+  padding:8px 12px;
+  border-radius:6px;
+  cursor:pointer;
+  z-index:1100;
+}
+@media (max-width:720px){
+  .hamburger{ display:block; }
+}
+
+/* ====== Overlay ====== */
+.sidebar-overlay{
+  display:none;
+}
+@media (max-width:720px){
+  .sidebar-overlay{
+    display:block;
+    position:fixed;
+    top:0; left:0;
+    width:100%; height:100%;
+    background:rgba(0,0,0,0.4);
+    z-index:999;
   }
 }
+
+/* Crop Info */
 .crop-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 16px;
 }
-
 .crop-card {
   background: #f9fff9;
   border: 1px solid #c8e6c9;
@@ -179,18 +230,15 @@
   padding: 12px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
-
 .crop-card h4 {
   color: #2e7d32;
   margin-bottom: 6px;
 }
-
 .crop-images {
   display: flex;
   gap: 6px;
   margin-top: 8px;
 }
-
 .crop-images img {
   width: 70px;
   height: 70px;
@@ -199,7 +247,7 @@
   border: 1px solid #ddd;
 }
 
-/* Logout button ke liye */
+/* Logout button */
 .farmer-logout {
   background: #d82525;
   border: none;
@@ -211,19 +259,18 @@
   cursor: pointer;
   transition: all 0.2s ease-in-out;
 }
-
 .farmer-logout:hover {
-  background: #d82525; /* हल्का red background hover पर */
+  background: #d82525;
   border-radius: 6px;
   font-size: 20px;
 }
 
+/* Schemes */
 .scheme-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 16px;
 }
-
 .scheme-card {
   background: #f9fff9;
   border: 1px solid #d4e8d4;
@@ -231,24 +278,18 @@
   padding: 16px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
-
 .scheme-card h4 {
   color: #2e7d32;
   margin-bottom: 8px;
 }
-
 .scheme-card p {
   font-size: 14px;
   color: #333;
   margin-bottom: 12px;
 }
 
-.qa-list {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
+/* Expert Q&A */
+.qa-list { display: flex; flex-direction: column; gap: 12px; }
 .qa-card {
   background: #fff;
   border: 1px solid #ddd;
@@ -260,16 +301,13 @@
 /* Home grid layout */
 .home-grid {
   display: grid;
-  grid-template-columns: 1fr 320px; /* main + right profile */
+  grid-template-columns: 1fr 320px;
   gap: 18px;
   align-items: start;
 }
-
-/* on small screens stack */
 @media (max-width: 900px) {
   .home-grid { grid-template-columns: 1fr; }
 }
-
 .home-main { display:flex; flex-direction:column; gap:14px; }
 
 /* stats row */
@@ -316,4 +354,3 @@
 
 /* quick-links */
 .quick-links { display:flex; flex-direction:column; gap:8px; }
-

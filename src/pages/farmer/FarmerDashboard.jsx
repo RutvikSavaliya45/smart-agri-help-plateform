@@ -13,9 +13,10 @@ import Weather from "./components/Weather";
 import CropRates from "./components/CropRates";
 import Schemes from "./components/Schemes";
 
-
 export default function FarmerDashboard() {
   const [active, setActive] = useState("home");
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
   const [complaints, setComplaints] = useState([
     { id: 1, issue: "Water supply problem", status: "Pending" },
     { id: 2, issue: "Fertilizer not available", status: "In Progress" },
@@ -25,8 +26,6 @@ export default function FarmerDashboard() {
   const [weather, setWeather] = useState(null);
 
   useEffect(() => {
-    // यहां आप future में API call कर सकते हैं
-    // अभी demo static data रखा है
     setWeather({
       name: "Rajkot",
       main: { temp: 30.5 },
@@ -37,7 +36,6 @@ export default function FarmerDashboard() {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    // जरूरत हो तो localStorage/session साफ़ कर सकते हैं
     navigate("/");
   };
 
@@ -51,7 +49,23 @@ export default function FarmerDashboard() {
 
   return (
     <div className="farmer-wrap">
-      <Sidebar active={active} setActive={setActive} handleLogout={handleLogout} />
+      {/* Hamburger (only mobile) */}
+      <button
+        className="hamburger"
+        onClick={() => setSidebarOpen(!sidebarOpen)}
+      >
+        ☰
+      </button>
+
+      {/* Sidebar (controlled by state) */}
+      <Sidebar
+        active={active}
+        setActive={setActive}
+        handleLogout={handleLogout}
+        open={sidebarOpen}
+        setOpen={setSidebarOpen}
+      />
+
       <main className="farmer-main">
         <Header />
 
@@ -66,7 +80,11 @@ export default function FarmerDashboard() {
             ]}
             weatherMini={
               weather
-                ? { name: weather.name, temp: weather.main.temp, desc: weather.weather[0].main }
+                ? {
+                    name: weather.name,
+                    temp: weather.main.temp,
+                    desc: weather.weather[0].main,
+                  }
                 : null
             }
             onOpenCropRates={() => setActive("rate")}
@@ -80,7 +98,6 @@ export default function FarmerDashboard() {
         {active === "check" && <Weather />}
         {active === "rate" && <CropRates />}
         {active === "scheme" && <Schemes />}
-        
       </main>
     </div>
   );

@@ -13,8 +13,9 @@ import ExpertHelp from "./components/ExpertHelp";
 
 export default function AdminDashboard() {
   const [active, setActive] = useState("home");
+  const [open, setOpen] = useState(false); // sidebar open/close state
 
-  // demo data (you will replace with backend later)
+  // demo data (replace with backend later)
   const [complaints, setComplaints] = useState([
     { id: 1, farmer: "Ramesh", issue: "Water shortage", status: "Pending" },
     { id: 2, farmer: "Suresh", issue: "Seed quality issue", status: "In Progress" },
@@ -33,13 +34,14 @@ export default function AdminDashboard() {
     navigate("/login");
   };
 
-  // handlers to pass to children (demo)
+  // handlers to pass to children
   const updateComplaintStatus = (id, status) => {
-    setComplaints((prev) => prev.map(c => c.id === id ? { ...c, status } : c));
+    setComplaints((prev) =>
+      prev.map((c) => (c.id === id ? { ...c, status } : c))
+    );
   };
 
   const addScheme = (scheme) => {
-    // implement later with backend
     alert("Scheme added (demo): " + scheme.title);
   };
 
@@ -49,12 +51,29 @@ export default function AdminDashboard() {
 
   return (
     <div className="admin-wrap">
-      <Sidebar active={active} setActive={setActive} handleLogout={handleLogout} />
+      {/* Hamburger (mobile only) */}
+      <button className="hamburger" onClick={() => setOpen(!open)}>
+        ☰
+      </button>
+
+      {/* Sidebar */}
+      <Sidebar
+        active={active}
+        setActive={setActive}
+        handleLogout={handleLogout}
+        open={open}
+        setOpen={setOpen}
+      />
+
+      {/* Main Content */}
       <main className="admin-main">
         <Header />
         {active === "home" && <Home complaints={complaints} users={users} />}
         {active === "complaints" && (
-          <Complaints complaints={complaints} onUpdateStatus={updateComplaintStatus} />
+          <Complaints
+            complaints={complaints}
+            onUpdateStatus={updateComplaintStatus}
+          />
         )}
         {active === "users" && <Users users={users} setUsers={setUsers} />}
         {active === "schemes" && <Schemes onAdd={addScheme} />}

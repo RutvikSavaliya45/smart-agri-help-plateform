@@ -1,5 +1,6 @@
 import React from "react";
 
+
 export default function Sidebar({ active, setActive, handleLogout, open, setOpen }) {
   const menu = [
     { key: "home", label: "Dashboard" },

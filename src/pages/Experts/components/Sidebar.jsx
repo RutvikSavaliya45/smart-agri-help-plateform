@@ -21,8 +21,11 @@ export default function Sidebar({ onLogout, setStatusFilter }) {
       </nav>
 
       <div style={{ marginTop: "auto", padding: 12 }}>
-        <button className="expert-logout" onClick={onLogout}>
-          🚪 Logout
+        <button
+          className="farmer-logout"
+          onClick={onLogout}
+        >
+          Logout
         </button>
       </div>
     </aside>

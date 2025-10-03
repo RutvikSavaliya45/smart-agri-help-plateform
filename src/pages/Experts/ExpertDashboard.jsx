@@ -8,9 +8,6 @@ import StatsCards from "./components/StatsCards";
 import Filters from "./components/Filters";
 import QuestionsList from "./components/QuestionsList";
 
-/**
- * ExpertDashboard (parent) - manages questions state and passes handlers
- */
 export default function ExpertDashboard() {
   const navigate = useNavigate();
 
@@ -52,12 +49,14 @@ export default function ExpertDashboard() {
     localStorage.setItem("expert_questions", JSON.stringify(questions));
   }, [questions]);
 
-  // handlers
+  // ✅ FIXED LOGOUT HANDLER
   const handleLogout = () => {
-    // clear any auth/session here if required
-    navigate("/login");
+    localStorage.removeItem("expert_questions"); // questions clear
+    localStorage.removeItem("authUser"); // अगर आपने auth store किया है तो ये भी clear
+    navigate("/"); // logout के बाद login page पर redirect
   };
 
+  // handlers
   const addAnswer = (id, answerText) => {
     setQuestions((prev) =>
       prev.map((q) =>
@@ -67,11 +66,15 @@ export default function ExpertDashboard() {
   };
 
   const markAnswered = (id) => {
-    setQuestions((prev) => prev.map((q) => (q.id === id ? { ...q, answered: true } : q)));
+    setQuestions((prev) =>
+      prev.map((q) => (q.id === id ? { ...q, answered: true } : q))
+    );
   };
 
   const markUnanswered = (id) => {
-    setQuestions((prev) => prev.map((q) => (q.id === id ? { ...q, answered: false } : q)));
+    setQuestions((prev) =>
+      prev.map((q) => (q.id === id ? { ...q, answered: false } : q))
+    );
   };
 
   const deleteQuestion = (id) => {
@@ -80,7 +83,6 @@ export default function ExpertDashboard() {
   };
 
   const addQuestion = (questionObj) => {
-    // questionObj must include: farmerName, q, category
     const newQ = {
       id: Date.now(),
       farmerName: questionObj.farmerName || "Unknown",
@@ -112,7 +114,11 @@ export default function ExpertDashboard() {
 
   return (
     <div className="expert-wrap">
-      <Sidebar onLogout={handleLogout} setStatusFilter={setStatusFilter} />
+      {/* ✅ Sidebar को onLogout prop pass किया */}
+      <Sidebar
+        onLogout={handleLogout}
+        setStatusFilter={setStatusFilter}
+      />
 
       <main className="expert-main">
         <Header />
@@ -128,10 +134,12 @@ export default function ExpertDashboard() {
             setSearchText={setSearchText}
             allCategories={[
               "all",
-              ...Array.from(new Set(questions.map((q) => q.category))).filter((c) => c),
+              ...Array.from(new Set(questions.map((q) => q.category))).filter(
+                (c) => c
+              ),
             ]}
           />
-          {/* small quick add for demo (expert can add sample question) */}
+          {/* quick add button */}
           <div className="quick-add">
             <button
               className="btn btn-green"

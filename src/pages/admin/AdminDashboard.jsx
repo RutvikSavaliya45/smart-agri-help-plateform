@@ -31,7 +31,7 @@ export default function AdminDashboard() {
   const navigate = useNavigate();
   const handleLogout = () => {
     // clear session if any
-    navigate("/login");
+    navigate("/");
   };
 
   // handlers to pass to children
